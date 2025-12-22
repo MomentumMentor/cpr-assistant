@@ -15,21 +15,30 @@ export default function Home() {
             CPR Assistant
           </h1>
 
+          <div className="bg-amber-50 border-2 border-amber-200 rounded-lg p-4 max-w-2xl mx-auto">
+            <p className="text-amber-900 font-semibold">
+              CPR = Context, Purpose, Results framework
+            </p>
+            <p className="text-amber-800 text-sm mt-1">
+              (NOT cardiopulmonary resuscitation)
+            </p>
+          </div>
+
           <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            Create structured Context-Purpose-Results documents with AI assistance.
-            Streamline your documentation workflow and maintain consistency across your projects.
+            A structured goal-setting framework with AI-powered validation.
+            Define your mindset, clarify your purpose, and commit to measurable results.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-            <Link href="/cpr/new">
+            <Link href="/auth">
               <Button size="lg" className="text-lg px-8 py-6 h-auto">
-                Start New CPR
+                Get Started
               </Button>
             </Link>
 
-            <Link href="/dashboard">
+            <Link href="/auth">
               <Button variant="outline" size="lg" className="text-lg px-8 py-6 h-auto">
-                View Dashboard
+                Sign In
               </Button>
             </Link>
           </div>

@@ -46,29 +46,44 @@ export function ActionCards() {
     const file = event.target.files?.[0];
     if (!file) return;
 
+    const validTypes = ['.txt', '.docx', '.pdf'];
+    const fileExt = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
+
+    if (!validTypes.includes(fileExt)) {
+      setUploadError('Please upload a .txt, .docx, or .pdf file');
+      return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+      setUploadError('File size must be less than 10MB');
+      return;
+    }
+
     setUploading(true);
     setUploadError('');
 
     try {
-      const text = await file.text();
-      const { data: { user } } = await supabase.auth.getUser();
+      const formData = new FormData();
+      formData.append('file', file);
 
-      const { data, error } = await supabase
-        .from('cpr_sessions')
-        .insert({
-          user_id: user?.id,
-          user_name: user?.user_metadata?.name || user?.email?.split('@')[0] || 'User',
-        })
-        .select()
-        .single();
+      const response = await fetch('/api/upload-cpr', {
+        method: 'POST',
+        body: formData,
+      });
 
-      if (error) throw error;
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Upload failed');
+      }
+
+      const { session } = await response.json();
 
       setUploadDialogOpen(false);
-      router.push(`/cpr/${data.id}/edit`);
-    } catch (error) {
+      router.push(`/cpr/${session.id}/edit`);
+      router.refresh();
+    } catch (error: any) {
       console.error('Upload error:', error);
-      setUploadError('Failed to upload file. Please try again.');
+      setUploadError(error.message || 'Failed to upload file. Please try again.');
     } finally {
       setUploading(false);
     }

@@ -80,19 +80,21 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-md space-y-6">
+    <div className="min-h-screen bg-gradient-to-br from-[#1a2942] via-[#1e3a5f] to-[#152238] relative overflow-hidden flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-amber-500/10 via-transparent to-transparent"></div>
+
+      <div className="w-full max-w-md space-y-6 relative z-10">
         <div className="text-center space-y-2">
-          <Link href="/" className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-slate-900 text-white mb-4">
+          <Link href="/" className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-amber-400 text-[#1a2942] mb-4 shadow-lg">
             <FileText className="w-8 h-8" />
           </Link>
-          <h1 className="text-3xl font-bold text-slate-900">CPR Assistant</h1>
-          <p className="text-slate-600">
+          <h1 className="text-3xl font-bold text-white">CPR Assistant</h1>
+          <p className="text-gray-300">
             {isSignUp ? 'Create an account to get started' : 'Sign in to continue'}
           </p>
         </div>
 
-        <Card>
+        <Card className="bg-white/95 backdrop-blur-sm shadow-xl border-0">
           <CardHeader>
             <CardTitle>{isSignUp ? 'Sign Up' : 'Sign In'}</CardTitle>
             <CardDescription>

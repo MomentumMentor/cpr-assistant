@@ -430,8 +430,10 @@ function EditContent() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 pb-24">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-[#1a2942] via-[#1e3a5f] to-[#152238] relative overflow-hidden pb-24">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-amber-500/10 via-transparent to-transparent"></div>
+
+      <div className="container mx-auto px-4 py-8 relative z-10">
         <div className="max-w-4xl mx-auto space-y-6">
           <div className="flex gap-2">
             <Button

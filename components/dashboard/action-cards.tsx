@@ -92,20 +92,20 @@ export function ActionCards() {
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-        <Card className="group hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer bg-white shadow-md border-0">
+        <Card className="group hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer bg-white/95 backdrop-blur-sm shadow-lg border-0">
           <CardContent className="p-8 flex flex-col items-center text-center space-y-6">
-            <div className="w-20 h-20 rounded-full bg-[#1E4D6B]/10 flex items-center justify-center group-hover:bg-[#1E4D6B]/20 transition-colors">
-              <ClipboardCheck className="w-10 h-10 text-[#1E4D6B]" />
+            <div className="w-20 h-20 rounded-full bg-[#1a2942]/10 flex items-center justify-center group-hover:bg-[#1a2942]/20 transition-colors">
+              <ClipboardCheck className="w-10 h-10 text-[#1a2942]" />
             </div>
             <div className="space-y-3">
-              <h3 className="text-2xl font-bold text-slate-900">CREATE A CPR</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
+              <h3 className="text-2xl font-bold text-[#1a2942]">CREATE A CPR</h3>
+              <p className="text-slate-700 text-sm leading-relaxed">
                 This tool will help you build a CPR, teach you best practices and, if you want, analyze it.
               </p>
             </div>
             <Button
               onClick={handleCreateCPR}
-              className="w-full bg-[#1E4D6B] hover:bg-[#163a54] text-white font-semibold py-6 text-base"
+              className="w-full bg-gradient-to-r from-amber-400 to-yellow-500 text-[#1a2942] hover:from-amber-300 hover:to-yellow-400 font-semibold py-6 text-base shadow-md"
               size="lg"
             >
               Start New CPR
@@ -113,20 +113,20 @@ export function ActionCards() {
           </CardContent>
         </Card>
 
-        <Card className="group hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer bg-white shadow-md border-0">
+        <Card className="group hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer bg-white/95 backdrop-blur-sm shadow-lg border-0">
           <CardContent className="p-8 flex flex-col items-center text-center space-y-6">
-            <div className="w-20 h-20 rounded-full bg-amber-500/10 flex items-center justify-center group-hover:bg-amber-500/20 transition-colors">
+            <div className="w-20 h-20 rounded-full bg-amber-500/20 flex items-center justify-center group-hover:bg-amber-500/30 transition-colors">
               <Edit className="w-10 h-10 text-amber-600" />
             </div>
             <div className="space-y-3">
-              <h3 className="text-2xl font-bold text-slate-900">UPDATE EXISTING CPR</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
+              <h3 className="text-2xl font-bold text-[#1a2942]">UPDATE EXISTING CPR</h3>
+              <p className="text-slate-700 text-sm leading-relaxed">
                 CPRs are not set in stone. They are a tool to accomplish. If circumstances or life changes... here we can change the CPR to accommodate.
               </p>
             </div>
             <Button
               onClick={handleViewMyCPRs}
-              className="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-6 text-base"
+              className="w-full bg-gradient-to-r from-amber-400 to-yellow-500 text-[#1a2942] hover:from-amber-300 hover:to-yellow-400 font-semibold py-6 text-base shadow-md"
               size="lg"
             >
               View My CPRs
@@ -134,20 +134,20 @@ export function ActionCards() {
           </CardContent>
         </Card>
 
-        <Card className="group hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer bg-white shadow-md border-0">
+        <Card className="group hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer bg-white/95 backdrop-blur-sm shadow-lg border-0">
           <CardContent className="p-8 flex flex-col items-center text-center space-y-6">
-            <div className="w-20 h-20 rounded-full bg-green-500/10 flex items-center justify-center group-hover:bg-green-500/20 transition-colors">
+            <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center group-hover:bg-green-500/30 transition-colors">
               <Upload className="w-10 h-10 text-green-600" />
             </div>
             <div className="space-y-3">
-              <h3 className="text-2xl font-bold text-slate-900">UPLOAD YOUR OWN CPR</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
+              <h3 className="text-2xl font-bold text-[#1a2942]">UPLOAD YOUR OWN CPR</h3>
+              <p className="text-slate-700 text-sm leading-relaxed">
                 For Tracking, Storage, Analysis and if you want help modifying or improving your CPR.
               </p>
             </div>
             <Button
               onClick={() => setUploadDialogOpen(true)}
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-6 text-base"
+              className="w-full bg-gradient-to-r from-amber-400 to-yellow-500 text-[#1a2942] hover:from-amber-300 hover:to-yellow-400 font-semibold py-6 text-base shadow-md"
               size="lg"
             >
               Upload CPR
@@ -157,10 +157,10 @@ export function ActionCards() {
       </div>
 
       <Dialog open={uploadDialogOpen} onOpenChange={setUploadDialogOpen}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md bg-white">
           <DialogHeader>
-            <DialogTitle className="text-2xl">Upload Your CPR</DialogTitle>
-            <DialogDescription className="text-base">
+            <DialogTitle className="text-2xl text-[#1a2942]">Upload Your CPR</DialogTitle>
+            <DialogDescription className="text-base text-slate-700">
               Upload an existing CPR document in .txt, .docx, or .pdf format
             </DialogDescription>
           </DialogHeader>
@@ -170,10 +170,10 @@ export function ActionCards() {
                 {uploadError}
               </div>
             )}
-            <div className="flex flex-col items-center justify-center border-2 border-dashed border-slate-300 rounded-lg p-12 hover:border-[#1E4D6B] transition-colors">
+            <div className="flex flex-col items-center justify-center border-2 border-dashed border-slate-300 rounded-lg p-12 hover:border-amber-400 transition-colors">
               <Upload className="w-12 h-12 text-slate-400 mb-4" />
               <label htmlFor="file-upload" className="cursor-pointer">
-                <span className="text-[#1E4D6B] hover:text-[#163a54] font-semibold">
+                <span className="text-[#1a2942] hover:text-amber-600 font-semibold">
                   Click to upload
                 </span>
                 <span className="text-slate-600"> or drag and drop</span>

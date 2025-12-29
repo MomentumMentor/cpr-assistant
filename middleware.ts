@@ -58,7 +58,11 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (request.nextUrl.pathname === '/' || request.nextUrl.pathname === '/beta-waitlist') {
+  if (
+    request.nextUrl.pathname === '/' ||
+    request.nextUrl.pathname === '/beta-waitlist' ||
+    request.nextUrl.pathname.startsWith('/auth')
+  ) {
     return response;
   }
 

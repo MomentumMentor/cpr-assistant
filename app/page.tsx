@@ -1,8 +1,31 @@
+'use client';
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { FileText } from 'lucide-react';
+import { createClient } from '@/lib/supabase/client';
+import { useState } from 'react';
 
 export default function Home() {
+  const [loading, setLoading] = useState(false);
+  const supabase = createClient();
+
+  const handleGoogleSignIn = async () => {
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
+      });
+      if (error) throw error;
+    } catch (err) {
+      console.error('Error signing in with Google:', err);
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       <div className="container mx-auto px-4 py-16">
@@ -29,16 +52,19 @@ export default function Home() {
             Define your mindset, clarify your purpose, and commit to measurable results.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-            <Link href="/auth">
-              <Button size="lg" className="text-lg px-8 py-6 h-auto">
-                Get Started
-              </Button>
-            </Link>
+          <div className="flex flex-col gap-4 justify-center items-center pt-4 max-w-md mx-auto">
+            <Button
+              size="lg"
+              className="w-full text-lg px-8 py-6 h-auto"
+              onClick={handleGoogleSignIn}
+              disabled={loading}
+            >
+              {loading ? 'Loading...' : 'Sign in with Google'}
+            </Button>
 
-            <Link href="/auth">
-              <Button variant="outline" size="lg" className="text-lg px-8 py-6 h-auto">
-                Sign In
+            <Link href="/auth" className="w-full">
+              <Button variant="outline" size="lg" className="w-full text-lg px-8 py-6 h-auto">
+                Sign in with Email
               </Button>
             </Link>
           </div>

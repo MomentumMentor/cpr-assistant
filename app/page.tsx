@@ -70,7 +70,7 @@ export default function Home() {
                 size="lg"
                 className="w-full text-lg px-8 py-6 h-auto bg-white/10 border-2 border-amber-400/50 text-white hover:bg-white/20 hover:border-amber-300 transition-all duration-200 font-semibold backdrop-blur-sm shadow-lg"
               >
-                Sign up for Momentum Mentor BETA Access
+                Request Access
               </Button>
             </Link>
           </div>

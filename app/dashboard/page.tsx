@@ -2,9 +2,10 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { FileText, Plus, ArrowLeft, Calendar, CheckCircle } from 'lucide-react';
+import { FileText, Calendar, CheckCircle, ClipboardCheck, Edit, Upload, PlayCircle } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { format } from 'date-fns';
+import { ActionCards } from '@/components/dashboard/action-cards';
 
 export default async function Dashboard() {
   const supabase = await createClient();
@@ -22,52 +23,57 @@ export default async function Dashboard() {
   const completedSessions = sessions?.filter(s => s.committed_at).length || 0;
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       <div className="container mx-auto px-4 py-8">
-        <div className="max-w-6xl mx-auto space-y-6">
+        <div className="max-w-7xl mx-auto space-y-8">
           <div className="flex items-center justify-between">
             <div className="space-y-1">
-              <h1 className="text-3xl font-bold text-slate-900">Dashboard</h1>
-              <p className="text-slate-600">
+              <h1 className="text-4xl font-bold text-[#1E4D6B]">Dashboard</h1>
+              <p className="text-slate-600 text-lg">
                 Manage and view all your CPR documents
               </p>
             </div>
 
-            <Link href="/cpr/new">
-              <Button size="lg">
-                <Plus className="w-5 h-5 mr-2" />
-                Create New CPR
-              </Button>
-            </Link>
+            <Button variant="outline" size="lg" className="border-[#1E4D6B] text-[#1E4D6B] hover:bg-[#1E4D6B] hover:text-white">
+              <PlayCircle className="w-5 h-5 mr-2" />
+              Training Video
+            </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold">{totalSessions}</CardTitle>
-                <CardDescription>Total CPRs</CardDescription>
-              </CardHeader>
-            </Card>
+          <ActionCards />
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold">{draftSessions}</CardTitle>
-                <CardDescription>In Progress</CardDescription>
-              </CardHeader>
-            </Card>
+          <div className="space-y-4">
+            <h2 className="text-2xl font-bold text-slate-900">Your CPRs</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Card className="shadow-sm hover:shadow-md transition-shadow">
+                <CardHeader>
+                  <CardTitle className="text-3xl font-bold text-[#1E4D6B]">{totalSessions}</CardTitle>
+                  <CardDescription className="text-base">Total CPRs</CardDescription>
+                </CardHeader>
+              </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold">{completedSessions}</CardTitle>
-                <CardDescription>Committed</CardDescription>
-              </CardHeader>
-            </Card>
+              <Card className="shadow-sm hover:shadow-md transition-shadow">
+                <CardHeader>
+                  <CardTitle className="text-3xl font-bold text-amber-600">{draftSessions}</CardTitle>
+                  <CardDescription className="text-base">In Progress</CardDescription>
+                </CardHeader>
+              </Card>
+
+              <Card className="shadow-sm hover:shadow-md transition-shadow">
+                <CardHeader>
+                  <CardTitle className="text-3xl font-bold text-green-600">{completedSessions}</CardTitle>
+                  <CardDescription className="text-base">Committed</CardDescription>
+                </CardHeader>
+              </Card>
+            </div>
           </div>
 
           {sessions && sessions.length > 0 ? (
-            <div className="grid grid-cols-1 gap-4">
-              {sessions.map((session) => (
-                <Card key={session.id} className="hover:shadow-md transition-shadow">
+            <div className="space-y-4" id="cpr-list">
+              <h2 className="text-2xl font-bold text-slate-900">Recent CPRs</h2>
+              <div className="grid grid-cols-1 gap-4">
+                {sessions.map((session) => (
+                  <Card key={session.id} className="hover:shadow-lg transition-shadow shadow-sm">
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <div className="space-y-2">
@@ -94,7 +100,7 @@ export default async function Dashboard() {
                         </CardDescription>
                       </div>
                       <Link href={session.committed_at ? `/cpr/${session.id}/complete` : `/cpr/${session.id}/edit`}>
-                        <Button variant="outline">
+                        <Button variant="outline" className="border-[#1E4D6B] text-[#1E4D6B] hover:bg-[#1E4D6B] hover:text-white">
                           {session.committed_at ? 'View' : 'Continue'}
                         </Button>
                       </Link>
@@ -103,29 +109,26 @@ export default async function Dashboard() {
                 </Card>
               ))}
             </div>
+            </div>
           ) : (
-            <Card className="border-dashed border-2">
-              <CardContent className="flex flex-col items-center justify-center py-16 text-center space-y-4">
-                <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center">
-                  <FileText className="w-8 h-8 text-slate-400" />
-                </div>
+            <div className="space-y-4">
+              <h2 className="text-2xl font-bold text-slate-900">Recent CPRs</h2>
+              <Card className="border-dashed border-2 shadow-sm">
+                <CardContent className="flex flex-col items-center justify-center py-16 text-center space-y-4">
+                  <div className="w-16 h-16 rounded-full bg-[#1E4D6B]/10 flex items-center justify-center">
+                    <FileText className="w-8 h-8 text-[#1E4D6B]" />
+                  </div>
 
-                <div className="space-y-2">
-                  <CardTitle className="text-xl">No CPRs yet</CardTitle>
-                  <CardDescription className="max-w-md">
-                    Get started by creating your first Context-Purpose-Results document.
-                    Click the button above to begin.
-                  </CardDescription>
-                </div>
-
-                <Link href="/cpr/new">
-                  <Button variant="outline">
-                    <Plus className="w-4 h-4 mr-2" />
-                    Create Your First CPR
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+                  <div className="space-y-2">
+                    <CardTitle className="text-2xl text-slate-900">No CPRs yet</CardTitle>
+                    <CardDescription className="max-w-md text-base">
+                      Get started by creating your first Context-Purpose-Results document.
+                      Use the action cards above to begin.
+                    </CardDescription>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           )}
         </div>
       </div>

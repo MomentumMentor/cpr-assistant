@@ -45,20 +45,31 @@ export default function AuthPage() {
 
     try {
       if (isSignUp) {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
         });
         if (error) throw error;
-        setMessage('Account created! You can now sign in.');
+        setMessage('Account created! Please check your email to confirm your account, then sign in.');
         setIsSignUp(false);
       } else {
-        const { error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabase.auth.signInWithPassword({
           email,
           password,
         });
         if (error) throw error;
-        router.push('/dashboard');
+
+        const { data: betaUser } = await supabase
+          .from('beta_users')
+          .select('*')
+          .eq('email', email)
+          .maybeSingle();
+
+        if (!betaUser || !betaUser.approved_at) {
+          router.push('/beta-waitlist');
+        } else {
+          router.push('/dashboard');
+        }
         router.refresh();
       }
     } catch (err: any) {

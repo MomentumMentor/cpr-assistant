@@ -27,7 +27,19 @@ export async function GET(request: Request) {
       }
     );
 
-    await supabase.auth.exchangeCodeForSession(code);
+    const { data: sessionData } = await supabase.auth.exchangeCodeForSession(code);
+
+    if (sessionData?.user) {
+      const { data: betaUser } = await supabase
+        .from('beta_users')
+        .select('*')
+        .eq('email', sessionData.user.email)
+        .maybeSingle();
+
+      if (!betaUser || !betaUser.approved_at) {
+        return NextResponse.redirect(new URL('/beta-waitlist', requestUrl.origin));
+      }
+    }
   }
 
   return NextResponse.redirect(new URL('/dashboard', requestUrl.origin));

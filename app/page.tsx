@@ -65,6 +65,15 @@ export default function Home() {
               {loading ? 'Loading...' : 'Sign in with Google'}
             </Button>
 
+            <Link href="/auth" className="w-full">
+              <Button
+                size="lg"
+                className="w-full text-lg px-8 py-6 h-auto bg-white/10 border-2 border-amber-400/50 text-white hover:bg-white/20 hover:border-amber-300 transition-all duration-200 font-semibold backdrop-blur-sm shadow-lg"
+              >
+                Sign in with Email
+              </Button>
+            </Link>
+
             <Link href="/beta-waitlist" className="w-full">
               <Button
                 size="lg"

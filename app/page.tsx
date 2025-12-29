@@ -32,7 +32,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto text-center space-y-12">
           <div className="flex justify-center mb-8">
             <Image
-              src="/image copy.png"
+              src="/cpr-assistant-logo-transparent.png"
               alt="CPR Framework"
               width={400}
               height={400}

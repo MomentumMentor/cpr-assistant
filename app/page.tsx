@@ -57,7 +57,7 @@ export default function Home() {
           <div className="flex flex-col gap-4 justify-center items-center pt-8 max-w-md mx-auto">
             <Button
               size="lg"
-              className="w-full text-lg px-8 py-6 h-auto bg-white text-black hover:bg-gray-100"
+              className="w-full text-lg px-8 py-6 h-auto bg-white text-black hover:bg-gray-50 hover:shadow-lg transition-all duration-200 font-semibold"
               onClick={handleGoogleSignIn}
               disabled={loading}
             >
@@ -66,9 +66,8 @@ export default function Home() {
 
             <Link href="/beta-waitlist" className="w-full">
               <Button
-                variant="outline"
                 size="lg"
-                className="w-full text-lg px-8 py-6 h-auto border-gray-600 text-white hover:bg-gray-900 hover:text-white"
+                className="w-full text-lg px-8 py-6 h-auto bg-slate-800/50 border-2 border-slate-600 text-white hover:bg-slate-700 hover:border-slate-500 transition-all duration-200 font-semibold backdrop-blur-sm"
               >
                 Sign up for Momentum Mentor BETA Access
               </Button>

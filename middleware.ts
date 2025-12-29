@@ -84,7 +84,7 @@ export async function middleware(request: NextRequest) {
       .eq('email', user.email)
       .maybeSingle();
 
-    if (!betaUser) {
+    if (!betaUser || !betaUser.approved) {
       return NextResponse.redirect(new URL('/beta-waitlist', request.url));
     }
   }

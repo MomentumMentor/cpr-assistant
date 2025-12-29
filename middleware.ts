@@ -58,21 +58,31 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (
-    !user &&
-    !request.nextUrl.pathname.startsWith('/auth') &&
-    !request.nextUrl.pathname.startsWith('/api') &&
-    request.nextUrl.pathname !== '/'
-  ) {
-    const url = request.nextUrl.clone();
-    url.pathname = '/auth';
-    return NextResponse.redirect(url);
+  if (request.nextUrl.pathname === '/' || request.nextUrl.pathname === '/beta-waitlist') {
+    return response;
   }
 
-  if (user && request.nextUrl.pathname === '/auth') {
-    const url = request.nextUrl.clone();
-    url.pathname = '/dashboard';
-    return NextResponse.redirect(url);
+  if (!user && (
+    request.nextUrl.pathname.startsWith('/dashboard') ||
+    request.nextUrl.pathname.startsWith('/cpr') ||
+    request.nextUrl.pathname.startsWith('/admin')
+  )) {
+    return NextResponse.redirect(new URL('/', request.url));
+  }
+
+  if (user && (
+    request.nextUrl.pathname.startsWith('/dashboard') ||
+    request.nextUrl.pathname.startsWith('/cpr')
+  )) {
+    const { data: betaUser } = await supabase
+      .from('beta_users')
+      .select('*')
+      .eq('email', user.email)
+      .maybeSingle();
+
+    if (!betaUser) {
+      return NextResponse.redirect(new URL('/beta-waitlist', request.url));
+    }
   }
 
   return response;

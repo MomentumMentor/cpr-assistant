@@ -74,29 +74,6 @@ export default function Home() {
               </Button>
             </Link>
           </div>
-
-          <div className="pt-16 grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-            <div className="bg-gray-900 p-6 rounded-lg border border-gray-800">
-              <div className="text-white font-semibold text-lg mb-2">Context</div>
-              <p className="text-gray-400 text-sm">
-                Define the background and situation for your documentation
-              </p>
-            </div>
-
-            <div className="bg-gray-900 p-6 rounded-lg border border-gray-800">
-              <div className="text-white font-semibold text-lg mb-2">Purpose</div>
-              <p className="text-gray-400 text-sm">
-                Clarify the goals and objectives of your work
-              </p>
-            </div>
-
-            <div className="bg-gray-900 p-6 rounded-lg border border-gray-800">
-              <div className="text-white font-semibold text-lg mb-2">Results</div>
-              <p className="text-gray-400 text-sm">
-                Document outcomes, metrics, and key achievements
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </div>
